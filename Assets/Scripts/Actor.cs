@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Actor : MonoBehaviour {
+public class Actor : uLink.MonoBehaviour {
 
-	public float shoveRange;
-	public float shoveForce;
 
 	// Use this for initialization
 	void Start () {
@@ -21,20 +19,28 @@ public class Actor : MonoBehaviour {
 		gameObject.SetActive(active);
 	}
 
-	public void Shove() {
+	/*public void Shove() {
 		Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, shoveRange);
 		foreach(Collider collider in nearbyColliders) {
-			if(collider.gameObject.tag == "Actor") {
-				if(collider.gameObject != gameObject) {
-					ShoveForce shoveForce = collider.gameObject.AddComponent<ShoveForce>() as ShoveForce;
-					Vector3 normal = Vector3.Normalize(collider.transform.position - transform.position);
-					shoveForce.normal = normal;
-				}
-			}
-
+			collider.gameObject.GetComponent<Actor>().AddShoveForce();
 		}
+		
+	}
+	
+	public void AddShoveForce() {
+		//networkView.RPC("NetworkShoveForce",uLink.RPCMode.All);
 
 	}
+
+	/*[RPC]
+	public void NetworkShoveForce() {
+
+		ShoveForce shoveForce = gameObject.AddComponent<ShoveForce>() as ShoveForce;
+		Vector3 normal = Vector3.Normalize(collider.transform.position - transform.position);
+		shoveForce.normal = normal;
+
+	}*/
+
 
 
 }

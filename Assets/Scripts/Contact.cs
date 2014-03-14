@@ -42,7 +42,6 @@ public class Contact : uLink.MonoBehaviour {
 
 	}
 
-
 	void OnTriggerEnter(Collider other)
 	{
 		colliders.Add (other);
