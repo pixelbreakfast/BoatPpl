@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Health : MonoBehaviour {
+public class Health : uLink.MonoBehaviour {
 	public int health = 100;
 	bool canLoseHealth = true;
 	bool dead = false;
@@ -22,25 +22,25 @@ public class Health : MonoBehaviour {
 				health -= amount;
 
 				if(health < 1) {
+					dead = true;
 					Die ();
 				}
 			}
 		}
 	}
 
+	void Die() {
+		
+		GameObject ragdoll = uLink.Network.Instantiate(Resources.Load ("Dead Boat Person"), transform.position, transform.rotation,0) as GameObject;
+		
+		//ragdoll.GetComponentInChildren<Renderer>().material.color = gameObject.GetComponentInChildren<Renderer>().material.color;
+		networkView.RPC ("SetActive",uLink.RPCMode.All,false);
+	}
+
 
 	IEnumerator resetCanLoseHealth() {
 		yield return new WaitForSeconds(0.1f);
 		canLoseHealth = true;
-	}
-
-	void Die() {
-		dead = true;
-
-		GameObject ragdoll = GameObject.Instantiate(Resources.Load ("Prefabs/Dead Boat Person"), transform.position, transform.rotation) as GameObject;
-		
-		ragdoll.GetComponentInChildren<Renderer>().material.color = gameObject.GetComponentInChildren<Renderer>().material.color;
-		gameObject.SetActive(false);
 	}
 
 

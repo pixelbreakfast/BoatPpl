@@ -15,6 +15,12 @@ public class Actor : MonoBehaviour {
 
 	}
 
+	[RPC]
+	public void SetActive(bool active) {
+
+		gameObject.SetActive(active);
+	}
+
 	public void Shove() {
 		Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, shoveRange);
 		foreach(Collider collider in nearbyColliders) {
