@@ -10,7 +10,7 @@ public class Grid : MonoBehaviour {
 	float xOffset;
 	float zOffset;
 
-	float debugSphereSize = 0.2f;
+	float debugSphereSize = 1f;
 
 	public float gridSpacing;
 	public List<Node> nodes;
@@ -20,9 +20,8 @@ public class Grid : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-		xOffset = -width/2;
-		zOffset = -length/2;
+		xOffset = width/2;
+		zOffset = length/2;
 
 		environmentLayerMask = 1 << LayerMask.NameToLayer("Walkable");
 
@@ -32,9 +31,10 @@ public class Grid : MonoBehaviour {
 			
 			for(int z = 0; z < length;z++) {
 
-				Ray ray = new Ray(transform.position + new Vector3(x * gridSpacing - xOffset, 0, z * gridSpacing - zOffset),Vector3.down);
+				Ray ray = new Ray(transform.position + new Vector3(x * gridSpacing, 0, z * gridSpacing),Vector3.down);
 				RaycastHit hit;
 				if(Physics.Raycast(ray,out hit, raycastRange, environmentLayerMask)) {
+
 					if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Walkable")) {
 
 

@@ -40,7 +40,7 @@ public class AIController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		actionInterval = Random.Range (0.3f, 0.3f);
+		actionInterval = Random.Range (0.5f, 2.0f);
 		if(destinationNode == null) {
 
 			float distance = 1000;

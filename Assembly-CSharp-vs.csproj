@@ -19,7 +19,7 @@
 	<DebugType>full</DebugType>
 	<Optimize>false</Optimize>
 	<OutputPath>Temp\bin\Debug\</OutputPath>
-	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_4;UNITY_4_3;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
+	<DefineConstants>DEBUG;TRACE;UNITY_STANDALONE_WIN;ENABLE_MICROPHONE;ENABLE_TEXTUREID_MAP;ENABLE_AUDIO_FMOD;UNITY_STANDALONE;ENABLE_MONO;ENABLE_SPRITES;ENABLE_TERRAIN;ENABLE_GENERICS;ENABLE_SUBSTANCE;INCLUDE_WP8SUPPORT;ENABLE_MOVIES;ENABLE_WWW;ENABLE_IMAGEEFFECTS;ENABLE_WEBCAM;INCLUDE_METROSUPPORT;RENDER_SOFTWARE_CURSOR;ENABLE_NETWORK;ENABLE_PHYSICS;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_2D_PHYSICS;ENABLE_SHADOWS;ENABLE_AUDIO;ENABLE_NAVMESH_CARVING;ENABLE_DUCK_TYPING;ENABLE_SINGLE_INSTANCE_BUILD_SETTING;UNITY_4_3_4;UNITY_4_3;UNITY_64;ENABLE_PROFILER;UNITY_EDITOR;UNITY_EDITOR_WIN</DefineConstants>
 	<ErrorReport>prompt</ErrorReport>
 	<WarningLevel>4</WarningLevel>
 	<NoWarn>0169</NoWarn>
@@ -46,8 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Networking Scripts\AuthSpawnPrefab.cs" />
-     <Compile Include="Assets\Networking Scripts\OwnerInit.cs" />
      <Compile Include="Assets\Resources\uLinkNetworkPrefs.cs" />
      <Compile Include="Assets\Scripts\AIController.cs" />
      <Compile Include="Assets\Scripts\Actor.cs" />
@@ -62,10 +60,10 @@
      <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
      <Compile Include="Assets\Scripts\GUI\StartButton.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
-     <Compile Include="Assets\Scripts\IgnoreColliders.cs" />
      <Compile Include="Assets\Scripts\ListExtensions.cs" />
      <Compile Include="Assets\Scripts\Messenger\Callback.cs" />
      <Compile Include="Assets\Scripts\Messenger\Messenger.cs" />
+     <Compile Include="Assets\Scripts\Networking\AuthSpawnPrefab.cs" />
      <Compile Include="Assets\Scripts\Pathfinding\Grid.cs" />
      <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
@@ -74,8 +72,17 @@
      <Compile Include="Assets\Scripts\SetCamera.cs" />
      <Compile Include="Assets\Scripts\ShoveForce.cs" />
      <Compile Include="Assets\Scripts\SpawnNPCs.cs" />
+     <Compile Include="Assets\Scripts\SunCycle.cs" />
+     <Compile Include="Assets\skydome\Sun.cs" />
+     <Compile Include="Assets\skydome\skydomeScript2.cs" />
      <None Include="Assets\Plugins\uLink\Assembly\uLink.xml" />
+     <None Include="Assets\Standard Assets\Skyboxes\_skybox info.txt" />
+     <None Include="Assets\Standard Assets\Water (Basic)\Sources\Shaders\FX-Water Simple.shader" />
+     <None Include="Assets\skydome\aScattering2.0.shader" />
      <None Include="Assets\Plugins\uLink\uLink License.txt" />
+ <Reference Include="Assembly-UnityScript-firstpass">
+ <HintPath>Library\ScriptAssemblies\Assembly-UnityScript-firstpass.dll</HintPath>
+ </Reference>
  <Reference Include="uLink">
  <HintPath>Assets\Plugins\uLink\Assembly\uLink.dll</HintPath>
  </Reference>
