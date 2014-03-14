@@ -27,20 +27,21 @@ public class Contact : uLink.MonoBehaviour {
 
 				float force = (1 - distance/repelThreshhold) * maxForce;
 				Vector3 vector3Force = Vector3.Normalize(collider.transform.position - transform.position) * force;
-				CharacterController characterController = collider.transform.gameObject.GetComponent<CharacterController>() as CharacterController;
-					if(characterController != null && characterController.gameObject.activeInHierarchy) 
-					{
-						if(transform.parent.gameObject.GetComponent<uLinkNetworkView>().isMine) {
-						characterController.Move(vector3Force);
-						} else {
-							Debug.Log ("moving networked actor");
-						}
+					
+				CharacterController characterController = transform.parent.gameObject.GetComponent<CharacterController>() as CharacterController;
+				
+				if(characterController != null && characterController.gameObject.activeInHierarchy) 
+				{
+					characterController.Move(-vector3Force);
+					Debug.Log ("moving");
+				}
 						
-					}
+					
 			}
 		}
 
 	}
+
 
 	void OnTriggerEnter(Collider other)
 	{

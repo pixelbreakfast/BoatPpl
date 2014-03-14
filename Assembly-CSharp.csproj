@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Networking Scripts\AuthSpawnPrefab.cs" />
      <Compile Include="Assets\Networking Scripts\OwnerInit.cs" />
+     <Compile Include="Assets\Resources\uLinkNetworkPrefs.cs" />
      <Compile Include="Assets\Scripts\AIController.cs" />
      <Compile Include="Assets\Scripts\Actor.cs" />
      <Compile Include="Assets\Scripts\Contact.cs" />
