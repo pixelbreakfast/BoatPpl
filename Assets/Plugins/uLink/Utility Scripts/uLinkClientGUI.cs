@@ -140,7 +140,7 @@ public class uLinkClientGUI : uLink.MonoBehaviour
 			}
 			else
 			{
-				busyDoingWhat = "Instantiating...";
+				busyDoingWhat = "Instantiating..."; //Will need to make sur eplayer still exists in some form to avoid this bug
 			}
 		}
 		else if (uLink.Network.status == uLink.NetworkStatus.Connecting)

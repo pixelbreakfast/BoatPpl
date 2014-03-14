@@ -33,7 +33,7 @@ public class Contact : uLink.MonoBehaviour {
 				if(characterController != null && characterController.gameObject.activeInHierarchy) 
 				{
 					characterController.Move(-vector3Force);
-					Debug.Log ("moving");
+
 				}
 						
 					
