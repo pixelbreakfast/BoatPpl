@@ -14,6 +14,7 @@ public class Health : uLink.MonoBehaviour {
 
 	public void SubtractHealth(int amount) {
 		if(dead == false) {
+
 			if(canLoseHealth) {
 
 				canLoseHealth = false;

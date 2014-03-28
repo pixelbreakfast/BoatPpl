@@ -52,14 +52,15 @@
      <Compile Include="Assets\Scripts\Contact.cs" />
      <Compile Include="Assets\Scripts\DeadPush.cs" />
      <Compile Include="Assets\Scripts\Effects\Bob.cs" />
-     <Compile Include="Assets\Scripts\Effects\ChangeMaterialColor.cs" />
      <Compile Include="Assets\Scripts\Effects\Rock.cs" />
+     <Compile Include="Assets\Scripts\Effects\SetAppearance.cs" />
      <Compile Include="Assets\Scripts\Effects\Wave.cs" />
      <Compile Include="Assets\Scripts\GUI\ExitButton.cs" />
      <Compile Include="Assets\Scripts\GUI\LoadLevelButton.cs" />
      <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
      <Compile Include="Assets\Scripts\GUI\StartButton.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
+     <Compile Include="Assets\Scripts\InspectionCamera.cs" />
      <Compile Include="Assets\Scripts\ListExtensions.cs" />
      <Compile Include="Assets\Scripts\Messenger\Callback.cs" />
      <Compile Include="Assets\Scripts\Messenger\Messenger.cs" />

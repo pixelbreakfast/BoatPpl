@@ -4,46 +4,58 @@ using System.Collections.Generic;
 
 public class Contact : uLink.MonoBehaviour {
 	public float repelThreshhold = 0.4f;
-	public float maxForce = 0.01f;
+	public float maxForce = 1f;
 	List<Collider> colliders = new List<Collider>();
+	CharacterController characterController;
+	Health health;
+
 	//List<Collider> ignore = new List<Collider>();
 
 	// Use this for initialization
 	void Start () {
+		characterController = transform.parent.GetComponent<CharacterController>() as CharacterController;
+		health = transform.parent.GetComponent<Health>() as Health;
 
 		Physics.IgnoreCollision(transform.parent.collider, collider);
 		//ignore.Add(transform.parent.GetComponent<CharacterController>().collider);
+	
+		//InvokeRepeating("CheckContact", 0, 0.05f);
 	}
 	
-	// Update is called once per frame
-	void Update () {
+	void Update() {
+		CheckContact();
+
+	}
+
+	void CheckContact() {
+		
 		foreach(Collider collider in colliders) {
-
+			
 			float distance = Vector3.Distance(collider.transform.position, transform.position);
-
+			
 			if(distance < repelThreshhold) {
-				Health health = transform.parent.GetComponent<Health>() as Health;
-				if(health != null) health.SubtractHealth(2);
-
+				
+				//health.SubtractHealth(2);
+				
 				float force = (1 - distance/repelThreshhold) * maxForce;
 				Vector3 vector3Force = Vector3.Normalize(collider.transform.position - transform.position) * force;
-					
-				CharacterController characterController = transform.parent.gameObject.GetComponent<CharacterController>() as CharacterController;
+				
 				
 				if(characterController != null && characterController.gameObject.activeInHierarchy) 
 				{
 					characterController.Move(-vector3Force);
-
-				}
-						
 					
+				}
+				
+				
 			}
 		}
-
 	}
+
 
 	void OnTriggerEnter(Collider other)
 	{
+
 		colliders.Add (other);
 
 	}

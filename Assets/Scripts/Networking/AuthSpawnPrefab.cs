@@ -20,6 +20,8 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 		
 	void uLink_OnPlayerConnected(uLink.NetworkPlayer player)
 	{
+		if(spawnLocation==null) spawnLocation = gameObject;
+
 		string loginName;
 		if (!player.loginData.TryRead<string>(out loginName)) loginName = "Nameless";
 		
