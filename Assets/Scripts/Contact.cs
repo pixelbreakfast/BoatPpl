@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Contact : uLink.MonoBehaviour {
 	public float repelThreshhold = 0.4f;
-	public float maxForce = 1f;
+	public float maxForce = 0.01f;
 	List<Collider> colliders = new List<Collider>();
 	CharacterController characterController;
 	Health health;
