@@ -26,7 +26,7 @@ public class AIController : MonoBehaviour {
 	float actionInterval;
 	public CharacterController characterController;
 	public Grid currentGrid;
-	public float searchRange = 0.5f;
+	public float searchRange = 0.8f;
 
 
 	public Vector3 spriteOffset;
@@ -40,7 +40,7 @@ public class AIController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		actionInterval = Random.Range (0.5f, 2.0f);
+		actionInterval = Random.Range (0.1f, 1.0f);
 		if(destinationNode == null) {
 
 			float distance = 1000;

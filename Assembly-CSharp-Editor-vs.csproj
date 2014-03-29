@@ -83,8 +83,6 @@
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass-vs.csproj">
       <Project>{AED3C27D-1F0B-C545-AF5B-CC6E06CB8C4A}</Project>      <Name>Assembly-CSharp-firstpass-vs</Name>    </ProjectReference>
-    <ProjectReference Include="Assembly-CSharp-vs.csproj">
-      <Project>{5D6DDD92-BFB5-715F-F752-B016C32B215F}</Project>      <Name>Assembly-CSharp-vs</Name>    </ProjectReference>
     <ProjectReference Include="Assembly-CSharp-Editor-firstpass-vs.csproj">
       <Project>{E5EF5F39-2973-2439-DBCC-527F8508A5D9}</Project>      <Name>Assembly-CSharp-Editor-firstpass-vs</Name>    </ProjectReference>
   </ItemGroup>

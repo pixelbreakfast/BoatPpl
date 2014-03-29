@@ -74,6 +74,7 @@
      <Compile Include="Assets\Scripts\ShoveForce.cs" />
      <Compile Include="Assets\Scripts\SpawnNPCs.cs" />
      <Compile Include="Assets\Scripts\SunCycle.cs" />
+     <Compile Include="Assets\Scripts\TimedRemoval.cs" />
      <Compile Include="Assets\skydome\Sun.cs" />
      <Compile Include="Assets\skydome\skydomeScript2.cs" />
      <None Include="Assets\Plugins\uLink\Assembly\uLink.xml" />

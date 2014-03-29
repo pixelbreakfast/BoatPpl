@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class Contact : uLink.MonoBehaviour {
 	public float repelThreshhold = 0.4f;
-	public float maxForce = 1f;
+	public float maxForce = 0.01f;
 	List<Collider> colliders = new List<Collider>();
 	CharacterController characterController;
 	Health health;
@@ -30,12 +30,13 @@ public class Contact : uLink.MonoBehaviour {
 	void CheckContact() {
 		
 		foreach(Collider collider in colliders) {
-			
+
+
 			float distance = Vector3.Distance(collider.transform.position, transform.position);
 			
 			if(distance < repelThreshhold) {
 				
-				//health.SubtractHealth(2);
+				if(health != null) health.SubtractHealth(2);
 				
 				float force = (1 - distance/repelThreshhold) * maxForce;
 				Vector3 vector3Force = Vector3.Normalize(collider.transform.position - transform.position) * force;

@@ -31,11 +31,13 @@ public class Health : uLink.MonoBehaviour {
 	}
 
 	void Die() {
-		
-		GameObject ragdoll = uLink.Network.Instantiate(Resources.Load ("Dead Boat Person"), transform.position, transform.rotation,0) as GameObject;
-		
+
+		SceneManager.Instance.actors.Remove(gameObject.GetComponent<Actor>());
+		networkView.RPC ("SpawnBody",uLink.RPCMode.All);
+
 		//ragdoll.GetComponentInChildren<Renderer>().material.color = gameObject.GetComponentInChildren<Renderer>().material.color;
 		networkView.RPC ("SetActive",uLink.RPCMode.All,false);
+		 
 	}
 
 
@@ -44,5 +46,30 @@ public class Health : uLink.MonoBehaviour {
 		canLoseHealth = true;
 	}
 
+	[RPC]
+	public void SpawnBody () {
+
+		GameObject ragdoll = GameObject.Instantiate(Resources.Load ("Dead Boat Person"), transform.position, transform.rotation) as GameObject;
+
+		GameObject boatPersonHead = GetByTag("Head", gameObject);
+		GameObject deadBoatPersonHead = GetByTag("Head", ragdoll);
+		
+		GameObject boatPersonBody = GetByTag("Body", gameObject);
+		GameObject deadBoatPersonBody = GetByTag("Body", ragdoll);
+
+		deadBoatPersonHead.renderer.material.mainTexture = boatPersonHead.renderer.material.mainTexture;
+		deadBoatPersonBody.renderer.material.color = boatPersonBody.renderer.material.color;
+	}
+	
+	GameObject GetByTag(string tagName, GameObject obj) {
+		Transform[] children = obj.GetComponentsInChildren<Transform>();
+		
+		foreach(Transform child in children) {
+			if(child.gameObject.tag == tagName) {
+				return child.gameObject;
+			}
+		}
+		return null;
+	}
 
 }

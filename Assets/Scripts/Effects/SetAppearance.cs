@@ -15,7 +15,7 @@ public class SetAppearance : MonoBehaviour {
 		TraverseAndSetAppearance(gameObject);
 	}
 
-	void TraverseAndSetAppearance (GameObject obj) {
+	public void TraverseAndSetAppearance (GameObject obj) {
 
 
 		foreach (Transform child in obj.transform)
