@@ -3,19 +3,24 @@ using System.Collections;
 
 public class Health : uLink.MonoBehaviour {
 	public int health = 100;
-	bool canLoseHealth = true;
+	public bool invulnerable = true; //Flag that sets whether damage can be dealt at all
+	bool canLoseHealth = true; // limits the frequency with which health is lost
 	bool dead = false;
 
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Start () {
+
+	}
+
+	public void SetInvulnerability(bool invulnerable) {
+		this.invulnerable = invulnerable;
 	}
 
 	public void SubtractHealth(int amount) {
 		if(dead == false) {
 
-			if(canLoseHealth) {
+			if(canLoseHealth && !invulnerable) {
 
 				canLoseHealth = false;
 
@@ -31,11 +36,15 @@ public class Health : uLink.MonoBehaviour {
 	}
 
 	void Die() {
-		
-		GameObject ragdoll = uLink.Network.Instantiate(Resources.Load ("Dead Boat Person"), transform.position, transform.rotation,0) as GameObject;
-		
+		if(GameManager.Instance != null) {
+			GameManager.Instance.actors.Remove(gameObject.GetComponent<Actor>());
+		}
+
+		networkView.RPC ("SpawnBody",uLink.RPCMode.All);
+
 		//ragdoll.GetComponentInChildren<Renderer>().material.color = gameObject.GetComponentInChildren<Renderer>().material.color;
-		networkView.RPC ("SetActive",uLink.RPCMode.All,false);
+		networkView.RPC ("Remove",uLink.RPCMode.All);
+		 
 	}
 
 
@@ -43,6 +52,7 @@ public class Health : uLink.MonoBehaviour {
 		yield return new WaitForSeconds(0.1f);
 		canLoseHealth = true;
 	}
+
 
 
 }

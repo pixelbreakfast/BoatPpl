@@ -59,6 +59,8 @@
      <Compile Include="Assets\Scripts\GUI\LoadLevelButton.cs" />
      <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
      <Compile Include="Assets\Scripts\GUI\StartButton.cs" />
+     <Compile Include="Assets\Scripts\GUI\WinGUI.cs" />
+     <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\InspectionCamera.cs" />
      <Compile Include="Assets\Scripts\ListExtensions.cs" />
@@ -69,11 +71,10 @@
      <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\SceneManager.cs" />
      <Compile Include="Assets\Scripts\SetCamera.cs" />
      <Compile Include="Assets\Scripts\ShoveForce.cs" />
-     <Compile Include="Assets\Scripts\SpawnNPCs.cs" />
      <Compile Include="Assets\Scripts\SunCycle.cs" />
+     <Compile Include="Assets\Scripts\TimedRemoval.cs" />
      <Compile Include="Assets\skydome\Sun.cs" />
      <Compile Include="Assets\skydome\skydomeScript2.cs" />
      <None Include="Assets\Plugins\uLink\Assembly\uLink.xml" />

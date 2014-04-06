@@ -3,12 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class SceneManager : MonoBehaviour {
+public class GameManager : uLink.MonoBehaviour {
 
 	// Static singleton property
-	public static SceneManager Instance { get; private set; }
-
+	public static GameManager Instance { get; private set; }
 	public List<Actor> actors;
+
+	public int time = 0;
+	public int timeUntilVoyage;
+	public float voyageLength;
+	bool showGUI = true;
 	
 	void Awake()
 	{	
@@ -24,11 +28,45 @@ public class SceneManager : MonoBehaviour {
 	}
 
 
+	void OnGUI() 
+	{
+		GUI.Label(new Rect(50,50,100, 25), time.ToString());
+
+		if(showGUI) {
+
+			if(GUI.Button(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 25, 100, 50), "Start Game")) {
+				InvokeRepeating("UpdateTimer", 1, 1);
+				Messenger.Broadcast("start_game");
+				showGUI = false;
+				Camera.main.gameObject.AddComponent<InspectionCamera>();
+				Camera.main.gameObject.AddComponent<MouseLook>();
+			}
+		}
+
+	}
+
 	// Use this for initialization
 
 	// Update is called once per frame
-	void Update () {
-	
+	void UpdateTimer () 
+	{
+		time++;
+
+		if(time == timeUntilVoyage) {
+			Debug.Log("Begin Voyage");
+			foreach(Actor actor in GameManager.Instance.actors) {
+				actor.networkView.RPC("StartVoyage", uLink.RPCMode.All);
+			}
+		}
+
+		if(time >= voyageLength + timeUntilVoyage) {
+			Debug.Log("Game Over");
+			foreach(Actor actor in GameManager.Instance.actors) {
+				actor.networkView.RPC ("Win", uLink.RPCMode.All);
+			}
+			CancelInvoke("UpdateTimer");
+		}
+
 	}
 
 	public void OnPlayerConnected (NetworkPlayer newPlayer) {

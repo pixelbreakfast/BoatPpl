@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class InspectionCamera : MonoBehaviour {
-	public float moveSpeed = 1;
+	public float moveSpeed = 10;
 	// Use this for initialization
 	void Start () {
 	

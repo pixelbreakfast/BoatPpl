@@ -23,8 +23,10 @@ public class Grid : MonoBehaviour {
 		xOffset = width/2;
 		zOffset = length/2;
 
-		environmentLayerMask = 1 << LayerMask.NameToLayer("Walkable");
-
+		LayerMask walkableLayerMask = 1 << LayerMask.NameToLayer("Walkable");
+		LayerMask cullingLayerMask = 1 << LayerMask.NameToLayer("Environment");
+		environmentLayerMask = walkableLayerMask | cullingLayerMask;
+	
 		if(nodes == null) nodes = new List<Node>();
 
 		for(int x = 0; x < width;x++) {
@@ -43,16 +45,17 @@ public class Grid : MonoBehaviour {
 							nodeGameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
 							Destroy(nodeGameObject.GetComponent<Collider>());
 							nodeGameObject.renderer.material.color = new Color(1, 1, 1);
-
-						} else {
+							} else {
 							nodeGameObject = new GameObject();
+
 						}
 
-						nodeGameObject.name = "Node";
+						nodeGameObject.gameObject.name = "Node " + x + ", " + z;
+
 						Node newNode = nodeGameObject.AddComponent<Node>() as Node;
 						newNode.transform.position = hit.point;
 						newNode.transform.parent = hit.transform;
-						newNode.transform.localScale = newNode.transform.localScale * debugSphereSize + new Vector3(0.1f,0.1f,0.1f);
+						newNode.transform.localScale = newNode.transform.localScale * debugSphereSize + new Vector3(0.01f,0.01f,0.01f);
 						nodes.Add(newNode);
 					}
 

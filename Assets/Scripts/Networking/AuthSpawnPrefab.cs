@@ -1,8 +1,17 @@
 using uLink;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class AuthSpawnPrefab : uLink.MonoBehaviour
 {
+
+	public Grid grid;
+	public GameObject npcProxyPrefab;
+	public GameObject npcCreatorPrefab;
+	public int numberOfNPCs = 20;
+	public float spawnTime = 0.8f;
+	int npcCount = 0;
+
 	//************************************************************************************************
 	// Owner is the actual player using the client Scene. It has animations + camera.  
 	// OwnerInit.cs connects the owner to the camera.
@@ -16,19 +25,75 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 	public GameObject proxyPrefab = null;
 	public GameObject ownerPrefab = null;
 	public GameObject creatorPrefab = null;
-	public GameObject spawnLocation = null;
+	GameObject[] spawnLocations;
+	int spawnLocationIndex = -1;
+	GameObject spawnLocation;
+	List<uLink.NetworkPlayer> queuedPlayers = new List<uLink.NetworkPlayer>();
+
+	public void Start() {
+
+		Messenger.AddListener("start_game", StartGame);
+	}
+
+	public void StartGame () {
+		spawnLocations = GameObject.FindGameObjectsWithTag("Spawn");
+
+		if(spawnLocations == null) {
+			Debug.LogError("No GameObjects tagged as 'Spawn.'  Tag a GameObject as 'Spawn'");
+		} else {
+			spawnLocation = GetNextSpawnLocation();
+		}
+
+		InvokeRepeating("SpawnNextActor",spawnTime,spawnTime);
+	}
 		
 	void uLink_OnPlayerConnected(uLink.NetworkPlayer player)
 	{
-		if(spawnLocation==null) spawnLocation = gameObject;
-
-		string loginName;
-		if (!player.loginData.TryRead<string>(out loginName)) loginName = "Nameless";
-		
-		//Instantiates an avatar for the player connecting to the server
-		//The player will be the "owner" of this object. Read the manual chapter 7 for more
-		//info about object roles: Creator, Owner and Proxy.
-		uLink.Network.Instantiate(player, proxyPrefab, ownerPrefab, creatorPrefab, spawnLocation.transform.position, spawnLocation.transform.rotation, 0, loginName);
+		queuedPlayers.Add(player);
+	
 	}
 	
+	void SpawnNextActor() {
+		if(GameManager.Instance.actors.Count < numberOfNPCs) {	
+			GameObject newActor;
+
+			if(queuedPlayers.Count <= 0) {
+
+				newActor = uLink.Network.Instantiate(npcProxyPrefab,npcCreatorPrefab,spawnLocation.transform.position,spawnLocation.transform.rotation,0,"") as GameObject;
+
+				newActor.GetComponent<AIController>().currentGrid = grid;
+				
+
+			} else {
+
+				uLink.NetworkPlayer player = queuedPlayers[0];
+				queuedPlayers.RemoveAt (0);
+
+				string loginName;
+				if (!player.loginData.TryRead<string>(out loginName)) loginName = "Nameless";
+				
+				//Instantiates an avatar for the player connecting to the server
+				//The player will be the "owner" of this object. Read the manual chapter 7 for more
+				//info about object roles: Creator, Owner and Proxy.
+				newActor = uLink.Network.Instantiate(player, proxyPrefab, ownerPrefab, creatorPrefab, spawnLocation.transform.position, spawnLocation.transform.rotation, 0, loginName);
+
+			}
+
+			GameManager.Instance.actors.Add(newActor.GetComponent<Actor>());
+
+			spawnLocation = GetNextSpawnLocation();
+
+		}
+	}
+
+	GameObject GetNextSpawnLocation() {
+
+		spawnLocationIndex++;
+		
+		if(spawnLocationIndex == spawnLocations.Length) {
+			spawnLocationIndex = 0;
+		}
+
+		return spawnLocations[spawnLocationIndex];
+	}
 }

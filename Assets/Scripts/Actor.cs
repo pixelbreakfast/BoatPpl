@@ -3,12 +3,15 @@ using System.Collections;
 
 public class Actor : uLink.MonoBehaviour {
 
+	public bool playable = false;
+	
 
-	// Use this for initialization
-	void Start () {
-	}
-
-	void Update() {
+	[RPC]
+	void StartVoyage() {
+		Health health = gameObject.GetComponent<Health>();
+		if(health != null) {
+			health.SetInvulnerability(false);
+		}
 
 
 	}
@@ -18,6 +21,48 @@ public class Actor : uLink.MonoBehaviour {
 
 		gameObject.SetActive(active);
 	}
+
+	[RPC]
+	public void Remove() {
+		Destroy(gameObject);
+	}
+
+	[RPC]
+	public void Win() {
+		if(playable) {
+			GameObject winGUI = GameObject.Instantiate( Resources.Load ("GUI/WinGUI"), Camera.main.transform.position, Camera.main.transform.rotation ) as GameObject;
+			winGUI.transform.parent = Camera.main.gameObject.transform;
+		}
+
+	}
+
+	
+	[RPC]
+	public void SpawnBody () {
+		
+		GameObject ragdoll = GameObject.Instantiate(Resources.Load ("Dead Boat Person"), transform.position, transform.rotation) as GameObject;
+		
+		GameObject boatPersonHead = GetByTag("Head", gameObject);
+		GameObject deadBoatPersonHead = GetByTag("Head", ragdoll);
+		
+		GameObject boatPersonBody = GetByTag("Body", gameObject);
+		GameObject deadBoatPersonBody = GetByTag("Body", ragdoll);
+		
+		deadBoatPersonHead.renderer.material.mainTexture = boatPersonHead.renderer.material.mainTexture;
+		deadBoatPersonBody.renderer.material.color = boatPersonBody.renderer.material.color;
+	}
+	
+	GameObject GetByTag(string tagName, GameObject obj) {
+		Transform[] children = obj.GetComponentsInChildren<Transform>();
+		
+		foreach(Transform child in children) {
+			if(child.gameObject.tag == tagName) {
+				return child.gameObject;
+			}
+		}
+		return null;
+	}
+
 
 	/*public void Shove() {
 		Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, shoveRange);

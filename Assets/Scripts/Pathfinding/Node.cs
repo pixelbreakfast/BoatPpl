@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -43,16 +43,20 @@ public class Node : MonoBehaviour {
 	}
 	
 	void UpdateVacancy() {
-		if(SceneManager.Instance == null) return;
-		if (SceneManager.Instance.actors == null) return;
+		if(GameManager.Instance == null) return;
+		if (GameManager.Instance.actors == null) return;
 
 		occupancy = 0;
-		foreach(Actor actor in SceneManager.Instance.actors) {
-			float distance = Vector3.Distance(actor.transform.position, transform.position);
-			if(distance < proximityCutoff) {
-				occupancy += 1 - distance / proximityCutoff;
+		foreach(Actor actor in GameManager.Instance.actors) {
+			if(actor != null) {
 
+				float distance = Vector3.Distance(actor.transform.position, transform.position);
+				if(distance < proximityCutoff) {
+					occupancy += 1 - distance / proximityCutoff;
+					
+				}
 			}
+
 
 		}
 		if(renderer != null) {
