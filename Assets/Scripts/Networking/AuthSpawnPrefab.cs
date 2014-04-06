@@ -8,8 +8,8 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 	public Grid grid;
 	public GameObject npcProxyPrefab;
 	public GameObject npcCreatorPrefab;
-	public int numberOfNPCs = 20;
-	public float spawnTime = 0.8f;
+	public float numberOfNPCs = 20;
+	public float spawnRate;
 	int npcCount = 0;
 
 	//************************************************************************************************
@@ -31,8 +31,11 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 	List<uLink.NetworkPlayer> queuedPlayers = new List<uLink.NetworkPlayer>();
 
 	public void Start() {
+		spawnRate = GameManager.Instance.timeUntilVoyage / numberOfNPCs;
+
 
 		Messenger.AddListener("start_game", StartGame);
+		Messenger.AddListener("start_voyage", CancelSpawn);
 	}
 
 	public void StartGame () {
@@ -44,9 +47,14 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 			spawnLocation = GetNextSpawnLocation();
 		}
 
-		InvokeRepeating("SpawnNextActor",spawnTime,spawnTime);
+		InvokeRepeating("SpawnNextActor",spawnRate,spawnRate);
 	}
 		
+	public void CancelSpawn() 
+	{
+		CancelInvoke("SpawnNextActor");
+	}
+
 	void uLink_OnPlayerConnected(uLink.NetworkPlayer player)
 	{
 		queuedPlayers.Add(player);

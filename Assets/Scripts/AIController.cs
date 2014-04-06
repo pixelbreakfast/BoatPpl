@@ -8,7 +8,7 @@ enum CharacterAction {
 }
 
 [RequireComponent (typeof (CharacterController))]
-public class AIController : MonoBehaviour {
+public class AIController : ActorController {
 
 	public static Vector3 GetNewDestination() {
 
@@ -22,11 +22,12 @@ public class AIController : MonoBehaviour {
 	CharacterAction currentAction;// = CharacterAction.Idle;
 
 	public Node destinationNode;
-	float walkSpeed = 1;
-	float actionInterval;
 	public CharacterController characterController;
 	public Grid currentGrid;
 	public float searchRange = 0.8f;
+
+	float walkSpeed = 1;
+	float actionInterval;
 
 
 	public Vector3 spriteOffset;
@@ -39,7 +40,7 @@ public class AIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+	
 		actionInterval = Random.Range (0.1f, 1.0f);
 		if(destinationNode == null) {
 
@@ -56,7 +57,8 @@ public class AIController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
+
 		if(destinationNode == null) return;
 
 

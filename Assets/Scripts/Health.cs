@@ -10,7 +10,7 @@ public class Health : uLink.MonoBehaviour {
 	
 	// Update is called once per frame
 	void Start () {
-
+		Messenger.AddListener("force_die", Die);
 	}
 
 	public void SetInvulnerability(bool invulnerable) {
@@ -46,7 +46,6 @@ public class Health : uLink.MonoBehaviour {
 		networkView.RPC ("Remove",uLink.RPCMode.All);
 		 
 	}
-
 
 	IEnumerator resetCanLoseHealth() {
 		yield return new WaitForSeconds(0.1f);

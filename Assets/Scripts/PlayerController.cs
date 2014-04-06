@@ -2,13 +2,17 @@
 using System.Collections;
 
 [RequireComponent (typeof (CharacterController))]
-public class PlayerController : uLink.MonoBehaviour {
+[RequireComponent (typeof (Actor))]
+public class PlayerController : ActorController {
 
 	CharacterController controller;
-	 float moveSpeed = 2;
-	 float gravity = 5;
+	float moveSpeed = 2;
+	float gravity = 5;
+	public bool frozen = false;
+
 
 	void Start () {
+
 		if(controller == null) {
 			controller = gameObject.GetComponent<CharacterController>() as CharacterController;
 		}
@@ -16,6 +20,8 @@ public class PlayerController : uLink.MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+
+		if(frozen) return;
 
 		Vector3 move = Vector3.zero;
 		move += new Vector3(0, -gravity  * Time.deltaTime, 0);
@@ -39,6 +45,7 @@ public class PlayerController : uLink.MonoBehaviour {
 		
 		controller.Move (move);
 	}
+
 
 	[RPC]
 	public void moveCharacterController(Vector3 force) {

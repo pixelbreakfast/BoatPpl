@@ -4,22 +4,20 @@ using System.Collections;
 public class Actor : uLink.MonoBehaviour {
 
 	public bool playable = false;
-	
 
-	[RPC]
-	void StartVoyage() {
-		Health health = gameObject.GetComponent<Health>();
-		if(health != null) {
-			health.SetInvulnerability(false);
-		}
-
-
+	void Start() {
+		Messenger.AddListener("start_voyage", StartVoyage);
+		Messenger.AddListener("end_voyage", EndVoyage);
 	}
 
-	[RPC]
-	public void SetActive(bool active) {
 
-		gameObject.SetActive(active);
+	public void StartVoyage() {
+		Health health = gameObject.GetComponent<Health>();
+		
+		if(health != null) {
+			health.SetInvulnerability(false);
+		} 
+
 	}
 
 	[RPC]
@@ -27,8 +25,7 @@ public class Actor : uLink.MonoBehaviour {
 		Destroy(gameObject);
 	}
 
-	[RPC]
-	public void Win() {
+	public void EndVoyage() {
 		if(playable) {
 			GameObject winGUI = GameObject.Instantiate( Resources.Load ("GUI/WinGUI"), Camera.main.transform.position, Camera.main.transform.rotation ) as GameObject;
 			winGUI.transform.parent = Camera.main.gameObject.transform;
@@ -62,6 +59,7 @@ public class Actor : uLink.MonoBehaviour {
 		}
 		return null;
 	}
+
 
 
 	/*public void Shove() {
