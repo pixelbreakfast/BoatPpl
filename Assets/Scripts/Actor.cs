@@ -21,8 +21,21 @@ public class Actor : uLink.MonoBehaviour {
 	}
 
 	[RPC]
+	public void Die() {
+		networkView.RPC ("SpawnBody",uLink.RPCMode.All);
+		
+		//ragdoll.GetComponentInChildren<Renderer>().material.color = gameObject.GetComponentInChildren<Renderer>().material.color;
+		networkView.RPC ("Remove",uLink.RPCMode.All);
+		
+	}
+
+	[RPC]
 	public void Remove() {
-		Destroy(gameObject);
+		if(!GameManager.Instance != null) {
+			
+			GameManager.Instance.actors.Remove(this);
+		}
+		uLink.Network.Destroy(gameObject);
 	}
 
 	public void EndVoyage() {
@@ -32,6 +45,7 @@ public class Actor : uLink.MonoBehaviour {
 		}
 
 	}
+
 
 	
 	[RPC]

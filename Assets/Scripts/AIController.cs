@@ -73,9 +73,12 @@ public class AIController : ActorController {
 			{
 				
 			Vector3 normal = Vector3.Normalize( destinationNode.transform.position - transform.position);
+				if(normal != Vector3.zero) {
 				transform.forward = new Vector3(normal.x, 0, normal.z);
 				characterController.Move(normal * walkSpeed * Time.deltaTime);
 
+				}
+				
 			}
 			
 			
@@ -99,11 +102,13 @@ public class AIController : ActorController {
 			Node newDestination = GetNearestNode();
 			foreach(Node node in currentGrid.nodes) 
 			{
-
+				
 				if(GetNodeUndesirability(node) < GetNodeUndesirability(newDestination)) {
 					newDestination = node;
-
+					
+					
 				}
+				
 			}
 
 			destinationNode = newDestination;
@@ -116,11 +121,13 @@ public class AIController : ActorController {
 		float nearestDistance = 10000;
 		Node nearestNode = null;
 		foreach(Node node in currentGrid.nodes) {
-			float distance = Vector3.Distance(transform.position, node.transform.position);
-			if(distance < nearestDistance) {
-				nearestDistance = distance;
-				nearestNode = node;
-			}
+
+				float distance = Vector3.Distance(transform.position, node.transform.position);
+				if(distance < nearestDistance) {
+					nearestDistance = distance;
+					nearestNode = node;
+				}
+
 		}
 		return nearestNode;
 	}

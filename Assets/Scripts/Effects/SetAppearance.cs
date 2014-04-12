@@ -2,28 +2,47 @@
 using System.Collections;
 using System.IO;
 
-public class SetAppearance : MonoBehaviour {
-	protected Texture2D texture;
-	protected Texture2D normal; 
+public class SetAppearance : uLink.MonoBehaviour 
+{
+
+
 
 	// Use this for initialization
 	void Start () {
-		Object[] textures = Resources.LoadAll("Textures");
-		texture = textures[Random.Range(0, textures.Length)] as Texture2D;
-		normal = Resources.Load("Textures/Normals/" + texture.name) as Texture2D;
+		if(uLink.Network.isServer) {
 
-		TraverseAndSetAppearance(gameObject);
+			Object[] textures = Resources.LoadAll("Textures");
+			
+			Texture2D texture = textures[Random.Range(0, textures.Length)] as Texture2D;
+
+			Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+
+			networkView.RPC ("RPCSetAppearance", uLink.RPCMode.AllBuffered, texture.name, color);
+
+		}
 	}
 
-	public void TraverseAndSetAppearance (GameObject obj) {
+	[RPC]
+	public void RPCSetAppearance(string textureName, Color color) {
+		Object[] textures = Resources.LoadAll("Textures");
+		
+		Texture2D texture = Resources.Load("Textures/HeadTextures/" + textureName) as Texture2D;
 
+		Texture2D normal = Resources.Load("Normals/" + textureName) as Texture2D;
+
+
+		TraverseAndSetAppearance(gameObject, texture, normal, color);
+	}
+
+	public void TraverseAndSetAppearance (GameObject obj, Texture2D texture, Texture2D normal, Color color) 
+	{
 
 		foreach (Transform child in obj.transform)
 		{
-			TraverseAndSetAppearance(child.gameObject);
+			TraverseAndSetAppearance(child.gameObject, texture, normal, color);
 			if(child.renderer != null) {
 				if(child.tag == "Body") {
-					child.renderer.material.color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+					child.renderer.material.color = color;
 					
 				}
 				if(child.tag == "Head") {
@@ -36,4 +55,6 @@ public class SetAppearance : MonoBehaviour {
 
 
 	}
+
+
 }

@@ -9,7 +9,7 @@ public class uLinkClientGUI : uLink.MonoBehaviour
 	public bool inputName = true;
 
 	public string quickText = "Play on Localhost";
-	public string quickHost = "127.0.0.1";
+	public string quickHost = "120.148.2.185";
 	public int quickPort = 7100;
 
 	public bool hasAdvancedMode = true;

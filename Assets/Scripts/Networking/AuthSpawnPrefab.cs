@@ -34,6 +34,7 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 		spawnRate = GameManager.Instance.timeUntilVoyage / numberOfNPCs;
 
 
+
 		Messenger.AddListener("start_game", StartGame);
 		Messenger.AddListener("start_voyage", CancelSpawn);
 	}
@@ -46,6 +47,10 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 		} else {
 			spawnLocation = GetNextSpawnLocation();
 		}
+
+		GameObject newActor = uLink.Network.Instantiate(proxyPrefab,ownerPrefab,spawnLocation.transform.position,spawnLocation.transform.rotation,0,"") as GameObject;
+		newActor.AddComponent<Health>();
+		GameManager.Instance.actors.Add(newActor.GetComponent<Actor>());
 
 		InvokeRepeating("SpawnNextActor",spawnRate,spawnRate);
 	}

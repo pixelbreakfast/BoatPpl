@@ -10,7 +10,7 @@ public class Health : uLink.MonoBehaviour {
 	
 	// Update is called once per frame
 	void Start () {
-		Messenger.AddListener("force_die", Die);
+
 	}
 
 	public void SetInvulnerability(bool invulnerable) {
@@ -28,28 +28,21 @@ public class Health : uLink.MonoBehaviour {
 				health -= amount;
 
 				if(health < 1) {
+					
 					dead = true;
-					Die ();
+					gameObject.GetComponent<Actor>().Die ();
 				}
 			}
 		}
 	}
 
-	void Die() {
-		if(GameManager.Instance != null) {
-			GameManager.Instance.actors.Remove(gameObject.GetComponent<Actor>());
-		}
 
-		networkView.RPC ("SpawnBody",uLink.RPCMode.All);
-
-		//ragdoll.GetComponentInChildren<Renderer>().material.color = gameObject.GetComponentInChildren<Renderer>().material.color;
-		networkView.RPC ("Remove",uLink.RPCMode.All);
-		 
-	}
 
 	IEnumerator resetCanLoseHealth() {
 		yield return new WaitForSeconds(0.1f);
-		canLoseHealth = true;
+		if(this != null) {
+			canLoseHealth = true;
+		}
 	}
 
 

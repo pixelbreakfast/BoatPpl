@@ -1,14 +1,12 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Actor.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\SetCamera.cs">
     <Files>
-      <File FileName="Assets\Scripts\ScenicCamera.cs" Line="10" Column="3" />
-      <File FileName="Assets\Scripts\Explode.cs" Line="7" Column="32" />
-      <File FileName="Assets\Scripts\Boat.cs" Line="15" Column="39" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="72" Column="34" />
-      <File FileName="Assets\Scripts\Health.cs" Line="44" Column="3" />
-      <File FileName="Assets\Scripts\AIController.cs" Line="119" Column="1" />
-      <File FileName="Assets\Scripts\Actor.cs" Line="25" Column="21" />
+      <File FileName="Assets\Scripts\Actor.cs" Line="37" Column="4" />
+      <File FileName="Assets\Scripts\Boat.cs" Line="12" Column="2" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="72" Column="4" />
+      <File FileName="Assets\Scripts\Effects\SetAppearance.cs" Line="37" Column="38" />
+      <File FileName="Assets\Scripts\SetCamera.cs" Line="8" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

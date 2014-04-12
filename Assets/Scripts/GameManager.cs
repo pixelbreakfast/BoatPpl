@@ -38,8 +38,8 @@ public class GameManager : uLink.MonoBehaviour {
 				InvokeRepeating("UpdateTimer", 1, 1);
 				BroadcastMessage("start_game");
 				showGUI = false;
-				Camera.main.gameObject.AddComponent<InspectionCamera>();
-				Camera.main.gameObject.AddComponent<MouseLook>();
+				//Camera.main.gameObject.AddComponent<InspectionCamera>();
+				//Camera.main.gameObject.AddComponent<MouseLook>();
 			}
 		}
 
@@ -53,6 +53,10 @@ public class GameManager : uLink.MonoBehaviour {
 
 	}
 	// Use this for initialization
+	void Start() {
+
+	}
+
 
 	// Update is called once per frame
 	void UpdateTimer () 
@@ -69,7 +73,16 @@ public class GameManager : uLink.MonoBehaviour {
 
 		if(time == voyageLength + timeUntilVoyage + timeUntilDocked) {
 			BroadcastMessage("docked" );
-			BroadcastMessage("force_die");
+
+			List<Actor> actors = new List<Actor>();
+
+			foreach(Actor actor in GameManager.Instance.actors) {
+				actors.Add(actor);
+			}
+
+			foreach(Actor actor in actors) {
+				actor.Die();
+			}
 			CancelInvoke("UpdateTimer");
 		}
 	}
