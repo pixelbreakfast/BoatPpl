@@ -15,6 +15,8 @@ public class SetCamera : MonoBehaviour {
 		mouseLook.sensitivityY = 10;
 		mouseLook.minimumY = -60;
 		mouseLook.maximumY = 60;
+
 	}
+
 
 }

@@ -58,9 +58,11 @@
      <Compile Include="Assets\Scripts\Effects\SetAppearance.cs" />
      <Compile Include="Assets\Scripts\Effects\Wave.cs" />
      <Compile Include="Assets\Scripts\Explode.cs" />
+     <Compile Include="Assets\Scripts\GUI\ClientGUI.cs" />
      <Compile Include="Assets\Scripts\GUI\ExitButton.cs" />
      <Compile Include="Assets\Scripts\GUI\LoadLevelButton.cs" />
      <Compile Include="Assets\Scripts\GUI\LobbyGUI.cs" />
+     <Compile Include="Assets\Scripts\GUI\ServerGUI.cs" />
      <Compile Include="Assets\Scripts\GUI\StartButton.cs" />
      <Compile Include="Assets\Scripts\GUI\WinGUI.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
@@ -75,8 +77,8 @@
      <Compile Include="Assets\Scripts\Pathfinding\Node.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
-     <Compile Include="Assets\Scripts\ScenicCamera.cs" />
      <Compile Include="Assets\Scripts\SetCamera.cs" />
+     <Compile Include="Assets\Scripts\SetScenicCamera.cs" />
      <Compile Include="Assets\Scripts\ShoveForce.cs" />
      <Compile Include="Assets\Scripts\SunCycle.cs" />
      <Compile Include="Assets\Scripts\TimedRemoval.cs" />

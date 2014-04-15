@@ -8,6 +8,7 @@ public class GameManager : uLink.MonoBehaviour {
 	// Static singleton property
 	public static GameManager Instance { get; private set; }
 	public List<Actor> actors;
+	List<uLink.NetworkPlayer> players = new List<uLink.NetworkPlayer>();
 
 	public int time = 0;
 	public float timeUntilVoyage;
@@ -15,6 +16,8 @@ public class GameManager : uLink.MonoBehaviour {
 	public float timeUntilDocked;
 	bool showGUI = true;
 	
+	private const float WIDTH = 220;
+
 	void Awake()
 	{	
 		// First we check if there are any other instances conflicting
@@ -30,18 +33,78 @@ public class GameManager : uLink.MonoBehaviour {
 
 	void OnGUI() 
 	{
-		GUI.Label(new Rect(50,50,100, 25), time.ToString());
+		
+
+
+		//GUI.Label(new Rect(50,50,100, 25), time.ToString());
 
 		if(showGUI) {
 
-			if(GUI.Button(new Rect(Screen.width / 2 - 50, Screen.height / 2 - 25, 100, 50), "Start Game")) {
+			
+			GUILayout.BeginArea(new Rect(0, 0, Screen.width, Screen.height));
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			GUILayout.BeginVertical();
+			GUILayout.FlexibleSpace();
+			
+			GUILayout.BeginVertical("Box", GUILayout.Width(WIDTH));
+
+			GUILayout.BeginVertical();
+			GUILayout.Space(5);
+			GUILayout.EndVertical();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+			GUILayout.Label("Waiting for players. " + players.Count + " have joined.");
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+			
+			GUILayout.BeginVertical();
+			GUILayout.Space(5);
+			GUILayout.EndVertical();
+
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
+
+			foreach(uLink.NetworkPlayer player in players) {
+				
+				GUILayout.BeginHorizontal();
+				GUILayout.FlexibleSpace();
+				GUILayout.Label(player.ToString());
+				GUILayout.FlexibleSpace();
+				GUILayout.EndHorizontal();
+			}
+
+			if (GUILayout.Button("Start Game", GUILayout.Width(120), GUILayout.Height(25)))
+			{		
 				InvokeRepeating("UpdateTimer", 1, 1);
 				BroadcastMessage("start_game");
 				showGUI = false;
 				//Camera.main.gameObject.AddComponent<InspectionCamera>();
 				//Camera.main.gameObject.AddComponent<MouseLook>();
 			}
+			
+			
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+			
+			GUILayout.BeginVertical();
+			GUILayout.Space(2);
+			GUILayout.EndVertical();
+			GUILayout.EndVertical();
+			
+			
+			GUILayout.FlexibleSpace();
+			GUILayout.EndVertical();
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
+			GUILayout.EndArea();
+
+
+
 		}
+
+		
 
 	}
 
@@ -87,23 +150,10 @@ public class GameManager : uLink.MonoBehaviour {
 		}
 	}
 
-	public void OnPlayerConnected (NetworkPlayer newPlayer) {
-		UnityEngine.Object[] characterControllers = Object.FindObjectsOfType (typeof(CharacterController));
-		
-		foreach(CharacterController characterControllerA in characterControllers)
-		{
-			foreach(CharacterController characterControllerB in characterControllers) 
-			{
-				if(characterControllerA != characterControllerB) {
-					characterControllerA.gameObject.SetActive(true);
-					characterControllerB.gameObject.SetActive(true);
-					Physics.IgnoreCollision(characterControllerA.collider, characterControllerB.collider);
-				}
-				
-			}
-			
-		}
-		
+	void uLink_OnPlayerConnected(uLink.NetworkPlayer newPlayer)
+	{
+
+		players.Add(newPlayer);
 
 	}
 }

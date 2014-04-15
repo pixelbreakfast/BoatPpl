@@ -5,17 +5,19 @@ using System.IO;
 public class SetAppearance : uLink.MonoBehaviour 
 {
 
-
-
 	// Use this for initialization
 	void Start () {
 		if(uLink.Network.isServer) {
 
-			Object[] textures = Resources.LoadAll("Textures");
+			Object[] textures = Resources.LoadAll("Textures/HeadTextures");
 			
 			Texture2D texture = textures[Random.Range(0, textures.Length)] as Texture2D;
 
 			Color color = new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
+			if(texture == null) {
+				Debug.Log ("another one here");
+
+			}
 
 			networkView.RPC ("RPCSetAppearance", uLink.RPCMode.AllBuffered, texture.name, color);
 

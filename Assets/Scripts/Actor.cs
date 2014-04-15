@@ -22,6 +22,17 @@ public class Actor : uLink.MonoBehaviour {
 
 	[RPC]
 	public void Die() {
+		Debug.Log ("died");
+		foreach(Transform child in gameObject.GetComponentsInChildren<Transform>() ) {
+			if(child.camera != null) {
+				child.camera.transform.parent = null;
+				Destroy (Camera.main.GetComponent<MouseLook>());
+
+			}
+
+
+		}
+
 		networkView.RPC ("SpawnBody",uLink.RPCMode.All);
 		
 		//ragdoll.GetComponentInChildren<Renderer>().material.color = gameObject.GetComponentInChildren<Renderer>().material.color;
@@ -31,10 +42,12 @@ public class Actor : uLink.MonoBehaviour {
 
 	[RPC]
 	public void Remove() {
-		if(!GameManager.Instance != null) {
-			
-			GameManager.Instance.actors.Remove(this);
-		}
+		/*if(!GameManager.Instance != null) {
+		
+				GameManager.Instance.actors.Remove(this);
+	
+
+		}*/
 		uLink.Network.Destroy(gameObject);
 	}
 
@@ -68,6 +81,8 @@ public class Actor : uLink.MonoBehaviour {
 		
 		foreach(Transform child in children) {
 			if(child.gameObject.tag == tagName) {
+				
+
 				return child.gameObject;
 			}
 		}
