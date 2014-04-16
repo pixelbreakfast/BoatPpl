@@ -2,9 +2,6 @@
 using System.Collections;
 
 public class Bob : MonoBehaviour {
-	//float maxUpwardSpeed = 0.1f;
-	float rotationSpeed = 0.1f;
-	//float maxDownwardSpeed = -0.3f;
 
 	// Use this for initialization
 	void Start () {

@@ -30,7 +30,7 @@ public class Health : uLink.MonoBehaviour {
 				if(health < 1) {
 					
 					dead = true;
-					gameObject.GetComponent<Actor>().Die ();
+					networkView.RPC("Die",uLink.RPCMode.All);
 				}
 			}
 		}

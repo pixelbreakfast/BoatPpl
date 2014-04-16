@@ -7,7 +7,6 @@ public class Contact : uLink.MonoBehaviour {
 
 	public float repelThreshhold = 0.4f;
 	public float maxForce = 0.5f;
-	new uLinkNetworkView networkView;
 
 	List<Collider> colliders = new List<Collider>();
 
@@ -19,7 +18,6 @@ public class Contact : uLink.MonoBehaviour {
 	void Start () {
 		characterController = transform.parent.gameObject.GetComponent<CharacterController>();
 
-		networkView = transform.parent.GetComponent<uLinkNetworkView>();
 		health = transform.parent.GetComponent<Health>() as Health;
 
 		Physics.IgnoreCollision(transform.parent.collider, collider);

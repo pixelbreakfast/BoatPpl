@@ -78,7 +78,7 @@ public class GameManager : uLink.MonoBehaviour {
 			if (GUILayout.Button("Start Game", GUILayout.Width(120), GUILayout.Height(25)))
 			{		
 				InvokeRepeating("UpdateTimer", 1, 1);
-				BroadcastMessage("start_game");
+				BroadcastMessageOnNetwork("start_game");
 				showGUI = false;
 				//Camera.main.gameObject.AddComponent<InspectionCamera>();
 				//Camera.main.gameObject.AddComponent<MouseLook>();
@@ -108,7 +108,7 @@ public class GameManager : uLink.MonoBehaviour {
 
 	}
 
-	void BroadcastMessage(string message) {
+	void BroadcastMessageOnNetwork(string message) {
 
 		Messenger.Broadcast(message);
 	
@@ -127,15 +127,15 @@ public class GameManager : uLink.MonoBehaviour {
 		time++;
 
 		if(time == timeUntilVoyage) {
-			BroadcastMessage("start_voyage");
+			BroadcastMessageOnNetwork("start_voyage");
 		}
 
 		if(time == voyageLength + timeUntilVoyage) {
-			BroadcastMessage("end_voyage");
+			BroadcastMessageOnNetwork("end_voyage");
 		}
 
 		if(time == voyageLength + timeUntilVoyage + timeUntilDocked) {
-			BroadcastMessage("docked" );
+			BroadcastMessageOnNetwork("docked" );
 
 			List<Actor> actors = new List<Actor>();
 
@@ -144,7 +144,7 @@ public class GameManager : uLink.MonoBehaviour {
 			}
 
 			foreach(Actor actor in actors) {
-				actor.Die();
+				actor.networkView.RPC ("Die",uLink.RPCMode.All);
 			}
 			CancelInvoke("UpdateTimer");
 		}

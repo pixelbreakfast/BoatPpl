@@ -26,8 +26,7 @@ public class SetAppearance : uLink.MonoBehaviour
 
 	[RPC]
 	public void RPCSetAppearance(string textureName, Color color) {
-		Object[] textures = Resources.LoadAll("Textures");
-		
+
 		Texture2D texture = Resources.Load("Textures/HeadTextures/" + textureName) as Texture2D;
 
 		Texture2D normal = Resources.Load("Normals/" + textureName) as Texture2D;

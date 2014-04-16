@@ -11,9 +11,6 @@ public class ServerGUI : MonoBehaviour {
 	public int guiDepth = 0;
 
 	private const float WIDTH = 220;
-	
-	private Vector2 scrollPosition = Vector2.zero;
-	private int selectedGrid = 0;
 
 	public bool lockCursor = true;
 	public bool hideCursor = true;
@@ -25,7 +22,7 @@ public class ServerGUI : MonoBehaviour {
 
 		yield return www;
 		Debug.Log ("ip got!");
-		string externalIP = www.data;
+		string externalIP = www.text;
 		externalIP=externalIP.Substring(externalIP.IndexOf(":")+1);
 		externalIP=externalIP.Substring(0,externalIP.IndexOf("<"));
 

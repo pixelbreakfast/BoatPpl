@@ -10,7 +10,6 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 	public GameObject npcCreatorPrefab;
 	public float numberOfNPCs = 20;
 	public float spawnRate;
-	int npcCount = 0;
 
 	//************************************************************************************************
 	// Owner is the actual player using the client Scene. It has animations + camera.  

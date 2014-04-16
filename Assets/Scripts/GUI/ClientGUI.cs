@@ -26,14 +26,10 @@ public class ClientGUI : uLink.MonoBehaviour
 	public int guiDepth = 0;
 
 	private bool showConnect = true;
-	private bool connecting = false;
 
 	private string playerName;
 	
 	private const float WIDTH = 220;
-	
-	private Vector2 scrollPosition = Vector2.zero;
-	private int selectedGrid = 0;
 	
 	private bool isRedirected = false;
 	

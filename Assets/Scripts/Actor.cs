@@ -22,7 +22,6 @@ public class Actor : uLink.MonoBehaviour {
 
 	[RPC]
 	public void Die() {
-		Debug.Log ("died");
 		foreach(Transform child in gameObject.GetComponentsInChildren<Transform>() ) {
 			if(child.camera != null) {
 				child.camera.transform.parent = null;
@@ -33,23 +32,15 @@ public class Actor : uLink.MonoBehaviour {
 
 		}
 
-		networkView.RPC ("SpawnBody",uLink.RPCMode.All);
-		
-		//ragdoll.GetComponentInChildren<Renderer>().material.color = gameObject.GetComponentInChildren<Renderer>().material.color;
-		networkView.RPC ("Remove",uLink.RPCMode.All);
+		SpawnBody();
+
+		if(uLink.Network.isServer) {
+
+			uLink.Network.Destroy(gameObject);
+		}
 		
 	}
 
-	[RPC]
-	public void Remove() {
-		/*if(!GameManager.Instance != null) {
-		
-				GameManager.Instance.actors.Remove(this);
-	
-
-		}*/
-		uLink.Network.Destroy(gameObject);
-	}
 
 	public void EndVoyage() {
 		if(playable) {
@@ -60,8 +51,6 @@ public class Actor : uLink.MonoBehaviour {
 	}
 
 
-	
-	[RPC]
 	public void SpawnBody () {
 		
 		GameObject ragdoll = GameObject.Instantiate(Resources.Load ("Dead Boat Person"), transform.position, transform.rotation) as GameObject;
