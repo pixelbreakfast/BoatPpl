@@ -4,6 +4,7 @@ using System.Collections;
 public class Actor : uLink.MonoBehaviour {
 
 	public bool playable = false;
+	float shoveRange = 1f;
 
 	void Start() {
 		Messenger.AddListener("start_voyage", StartVoyage);
@@ -13,7 +14,7 @@ public class Actor : uLink.MonoBehaviour {
 
 	public void StartVoyage() {
 		Health health = gameObject.GetComponent<Health>();
-		
+
 		if(health != null) {
 			health.SetInvulnerability(false);
 		} 
@@ -78,30 +79,22 @@ public class Actor : uLink.MonoBehaviour {
 		return null;
 	}
 
-
-
-	/*public void Shove() {
-		Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, shoveRange);
+	public void Shove() {
+		Collider[] nearbyColliders = Physics.OverlapSphere(transform.position, shoveRange, 1 << LayerMask.NameToLayer("Actor"));
 		foreach(Collider collider in nearbyColliders) {
-			collider.gameObject.GetComponent<Actor>().AddShoveForce();
+			Vector3 normal  =  Vector3.Normalize(collider.transform.position - transform.position);
+
+				collider.GetComponent<uLinkNetworkView>().RPC("AddShoveForce", uLink.RPCMode.All, normal);
+
 		}
 		
 	}
-	
-	public void AddShoveForce() {
-		//networkView.RPC("NetworkShoveForce",uLink.RPCMode.All);
 
-	}
-
-	/*[RPC]
-	public void NetworkShoveForce() {
-
-		ShoveForce shoveForce = gameObject.AddComponent<ShoveForce>() as ShoveForce;
-		Vector3 normal = Vector3.Normalize(collider.transform.position - transform.position);
+[RPC]
+	public void AddShoveForce(Vector3 normal) {
+		ShoveForce shoveForce = collider.gameObject.AddComponent<ShoveForce>();
 		shoveForce.normal = normal;
-
-	}*/
-
+	}
 
 
 }

@@ -7,15 +7,16 @@ public class ShoveForce : MonoBehaviour {
 	float force = 6f;
 	float falloff = 0.05f;
 	float destroyThreshhold = 0.001f;
-
+	CharacterController characterController;
+	
 	// Use this for initialization
 	void Start () {
-	
+	 characterController = collider.gameObject.GetComponent<CharacterController>() as CharacterController;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		CharacterController characterController = collider.gameObject.GetComponent<CharacterController>() as CharacterController;
+		
 
 		characterController.Move(normal * force * Time.deltaTime);
 		force = force * (1 - falloff);

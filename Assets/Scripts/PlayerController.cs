@@ -43,7 +43,13 @@ public class PlayerController : ActorController {
 		}
 
 		
+		if(Input.GetMouseButtonDown(0)) {
+			gameObject.GetComponent<Actor>().Shove();
+		}
+
+		
 		controller.Move (move);
+
 	}
 
 
