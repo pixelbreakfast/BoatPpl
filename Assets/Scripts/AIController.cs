@@ -19,8 +19,6 @@ public class AIController : ActorController {
 		return newPosition;
 	}
 
-	CharacterAction currentAction;// = CharacterAction.Idle;
-
 	public Node destinationNode;
 	public CharacterController characterController;
 	public Grid currentGrid;
@@ -91,8 +89,7 @@ public class AIController : ActorController {
 	}
 	
 	void SetAction(CharacterAction npcAction) {
-		currentAction = npcAction;
-		
+	
 	}
 
 	void UpdateAction() {
