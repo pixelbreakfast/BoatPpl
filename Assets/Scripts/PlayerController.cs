@@ -5,17 +5,12 @@ using System.Collections;
 [RequireComponent (typeof (Actor))]
 public class PlayerController : ActorController {
 
-	CharacterController controller;
 	float moveSpeed = 2;
-	float gravity = 5;
 	public bool frozen = false;
-
 
 	void Start () {
 
-		if(controller == null) {
-			controller = gameObject.GetComponent<CharacterController>() as CharacterController;
-		}
+
 	}
 
 	// Update is called once per frame
@@ -24,22 +19,21 @@ public class PlayerController : ActorController {
 		if(frozen) return;
 
 		Vector3 move = Vector3.zero;
-		move += new Vector3(0, -gravity  * Time.deltaTime, 0);
 
 		if(Input.GetKey(KeyCode.W)) {
-			move += transform.forward * moveSpeed * Time.deltaTime;
+			move += transform.forward ;
 		}
 		
 		if(Input.GetKey(KeyCode.D)) {
-			move += transform.right * moveSpeed * Time.deltaTime;
+			move += transform.right ;
 		}
 		
 		if(Input.GetKey(KeyCode.A)) {
-			move += -transform.right * moveSpeed * Time.deltaTime;
+			move += -transform.right;
 		}
 		
 		if(Input.GetKey(KeyCode.S)) {
-			move += -transform.forward * moveSpeed * Time.deltaTime;
+			move += -transform.forward;
 		}
 
 		
@@ -48,13 +42,13 @@ public class PlayerController : ActorController {
 		}
 
 		
-		controller.Move (move);
+		Move (move);
 
 	}
 
 
 	[RPC]
 	public void moveCharacterController(Vector3 force) {
-		controller.Move (force);
+		Move (force);
 	}
 }

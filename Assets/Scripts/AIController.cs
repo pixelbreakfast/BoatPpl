@@ -7,7 +7,6 @@ enum CharacterAction {
 	Idle
 }
 
-[RequireComponent (typeof (CharacterController))]
 public class AIController : ActorController {
 
 	public static Vector3 GetNewDestination() {
@@ -20,11 +19,9 @@ public class AIController : ActorController {
 	}
 
 	public Node destinationNode;
-	public CharacterController characterController;
 	public Grid currentGrid;
 	public float searchRange = 0.8f;
 
-	float walkSpeed = 1;
 	float actionInterval;
 
 
@@ -32,9 +29,7 @@ public class AIController : ActorController {
 	
 	
 	float destinationThreshhold = 0.2f;
-	void Awake() {
-		characterController = GetComponent<CharacterController>();
-	}
+
 
 	// Use this for initialization
 	void Start () {
@@ -71,11 +66,13 @@ public class AIController : ActorController {
 			{
 				
 			Vector3 normal = Vector3.Normalize( destinationNode.transform.position - transform.position);
-				if(normal != Vector3.zero) {
-				transform.forward = new Vector3(normal.x, 0, normal.z);
-				characterController.Move(normal * walkSpeed * Time.deltaTime);
+			Vector3 forward = new Vector3(normal.x, 0, normal.z);
+			if(forward != Vector3.zero) {
+				transform.forward = forward;
+			}
+				
+				Move (normal);
 
-				}
 				
 			}
 			

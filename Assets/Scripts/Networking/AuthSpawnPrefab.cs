@@ -74,7 +74,7 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 				newActor = uLink.Network.Instantiate(npcProxyPrefab,npcCreatorPrefab,spawnLocation.transform.position,spawnLocation.transform.rotation,0,"") as GameObject;
 
 				newActor.GetComponent<AIController>().currentGrid = grid;
-				
+			
 
 			} else {
 
@@ -90,7 +90,6 @@ public class AuthSpawnPrefab : uLink.MonoBehaviour
 				newActor = uLink.Network.Instantiate(player, proxyPrefab, ownerPrefab, creatorPrefab, spawnLocation.transform.position, spawnLocation.transform.rotation, 0, loginName);
 
 			}
-
 			GameManager.Instance.actors.Add(newActor.GetComponent<Actor>());
 
 			spawnLocation = GetNextSpawnLocation();

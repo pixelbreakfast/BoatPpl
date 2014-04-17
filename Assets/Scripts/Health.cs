@@ -6,10 +6,9 @@ public class Health : uLink.MonoBehaviour {
 	public bool invulnerable = true; //Flag that sets whether damage can be dealt at all
 	bool canLoseHealth = true; // limits the frequency with which health is lost
 	bool dead = false;
-
 	
 	// Update is called once per frame
-	void Start () {
+	void Update() {
 
 	}
 
@@ -20,19 +19,18 @@ public class Health : uLink.MonoBehaviour {
 	public void SubtractHealth(int amount) {
 		if(dead == false) {
 
-			if(canLoseHealth && !invulnerable) {
-
-				canLoseHealth = false;
-
-				StartCoroutine("resetCanLoseHealth");
-				health -= amount;
-
-				if(health < 1) {
+				if(canLoseHealth && !invulnerable) {
 					
-					dead = true;
-					networkView.RPC("Die",uLink.RPCMode.All);
+					canLoseHealth = false;
+					StartCoroutine("resetCanLoseHealth");
+
+					health -= amount;
+					if(health < 1) {
+						
+						dead = true;
+						networkView.RPC("Die",uLink.RPCMode.All);
+					}
 				}
-			}
 		}
 	}
 
@@ -40,9 +38,9 @@ public class Health : uLink.MonoBehaviour {
 
 	IEnumerator resetCanLoseHealth() {
 		yield return new WaitForSeconds(0.1f);
-		if(this != null) {
+	
 			canLoseHealth = true;
-		}
+
 	}
 
 

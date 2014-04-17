@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Contact : uLink.MonoBehaviour {
-	CharacterController characterController;
+	public bool canRepel = false;
 
-	public float repelThreshhold = 0.4f;
-	public float maxForce = 0.5f;
-
-	List<Collider> colliders = new List<Collider>();
+	ActorController actorController;
+	CapsuleCollider capsuleCollider;
+	
+	float repelThreshhold = 0.4f;
+	float maxForce = 1;
 
 	Health health;
 
@@ -16,13 +17,15 @@ public class Contact : uLink.MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		characterController = transform.parent.gameObject.GetComponent<CharacterController>();
+		Messenger.AddListener("start_voyage", SetCanRepel);
 
-		health = transform.parent.GetComponent<Health>() as Health;
+		capsuleCollider = GetComponent<CapsuleCollider>() as CapsuleCollider;
 
-		Physics.IgnoreCollision(transform.parent.collider, collider);
-		//ignore.Add(transform.parent.GetComponent<CharacterController>().collider);
-	
+		actorController = transform.gameObject.GetComponent<ActorController>();
+
+		health = transform.GetComponent<Health>() as Health;
+
+
 		//InvokeRepeating("CheckContact", 0, 0.05f);
 	}
 	
@@ -31,48 +34,36 @@ public class Contact : uLink.MonoBehaviour {
 
 	}
 
+	void SetCanRepel() {
+		canRepel = true;
+	}
+
 	void CheckContact() {
-		
-		foreach(Collider collider in colliders) {
+	
+		Actor[] actors = GameObject.FindObjectsOfType<Actor>() as Actor[];
+		for(int i = 0; i< actors.Length; i++) {
 
-			if(collider != null) {
+			if(actors[i].gameObject == gameObject) continue;
 
-				float distance = Vector3.Distance(collider.transform.position, transform.position);
+			float distance = Vector3.Distance(actors[i].transform.position, transform.position);
+
+			if(distance < repelThreshhold) {
+
+				if(health != null) {
+
+					health.SubtractHealth(2);
+
+				} 
+				float force = (1 - distance/repelThreshhold) * maxForce;
+
+				Vector3 vector3Force = Vector3.Normalize(actors[i].transform.position - transform.position) * force ;
 			
-				if(distance < repelThreshhold) {
-					
-					if(health != null) health.SubtractHealth(2);
-					
-					float force = (1 - distance/repelThreshhold) * maxForce;
-					Vector3 vector3Force = Vector3.Normalize(collider.transform.position - transform.position) * force;
-
-					if(characterController != null && characterController.gameObject.activeInHierarchy) 
-					{
-						characterController.Move(-vector3Force);
-
-					}
-				}
-			}
-		}
-	}
-
-
-	void OnTriggerEnter(Collider other)
-	{
-
-		colliders.Add (other);
-
-	}
-
-	void OnTriggerExit(Collider other) {
-
-		for (int i = 0; i < colliders.Count; i++) // Loop through List with for
-		{
-			if(colliders[i] == other) {
-				colliders.Remove (colliders[i]);
+				actorController.AddBufferedMove(-vector3Force);
 			}
 
 		}
-
 	}
+
+
+
 }

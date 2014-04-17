@@ -3,6 +3,8 @@ using System.Collections;
 
 public class SetCamera : MonoBehaviour {
 
+	public GameObject head;
+
 	// Use this for initialization
 	void Start () {
 
@@ -16,7 +18,11 @@ public class SetCamera : MonoBehaviour {
 		mouseLook.minimumY = -60;
 		mouseLook.maximumY = 60;
 
+		InvokeRepeating("AdjustPosition", 0, 0.1f);
 	}
 
+	void AdjustPosition() {
+		transform.position = head.transform.position;
+	}
 
 }

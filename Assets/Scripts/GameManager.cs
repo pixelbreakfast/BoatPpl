@@ -77,6 +77,7 @@ public class GameManager : uLink.MonoBehaviour {
 
 			if (GUILayout.Button("Start Game", GUILayout.Width(120), GUILayout.Height(25)))
 			{		
+				Debug.Log ("Game Started");
 				InvokeRepeating("UpdateTimer", 1, 1);
 				BroadcastMessageOnNetwork("start_game");
 				showGUI = false;
@@ -128,23 +129,23 @@ public class GameManager : uLink.MonoBehaviour {
 
 		if(time == timeUntilVoyage) {
 			BroadcastMessageOnNetwork("start_voyage");
+			Debug.Log ("Voyage Started");
 		}
 
 		if(time == voyageLength + timeUntilVoyage) {
 			BroadcastMessageOnNetwork("end_voyage");
+			Debug.Log ("Voyage Ended");
 		}
 
 		if(time == voyageLength + timeUntilVoyage + timeUntilDocked) {
 			BroadcastMessageOnNetwork("docked" );
+			Debug.Log ("Docked");
 
-			List<Actor> actors = new List<Actor>();
-
-			foreach(Actor actor in GameManager.Instance.actors) {
-				actors.Add(actor);
-			}
-
-			foreach(Actor actor in actors) {
-				actor.networkView.RPC ("Die",uLink.RPCMode.All);
+			int actors =  GameManager.Instance.actors.Count;
+		
+			for(int i = 0; i < actors; i++)
+			{
+				GameManager.Instance.actors[i].networkView.RPC ("Die",uLink.RPCMode.All);
 			}
 			CancelInvoke("UpdateTimer");
 		}
