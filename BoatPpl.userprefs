@@ -1,11 +1,11 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Contact.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\GameManager.cs">
     <Files>
-      <File FileName="Assets\Scripts\Contact.cs" Line="55" Column="6" />
-      <File FileName="Assets\Scripts\Health.cs" Line="26" Column="5" />
-      <File FileName="Assets\Scripts\GameManager.cs" Line="11" Column="17" />
-      <File FileName="Assets\Scripts\Networking\AuthSpawnPrefab.cs" Line="49" Column="3" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="87" Column="1" />
+      <File FileName="Assets\Scripts\GameManager.cs" Line="88" Column="4" />
+      <File FileName="Assets\Scripts\GUI\ClientGUI.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Networking\AuthSpawnPrefab.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

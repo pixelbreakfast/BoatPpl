@@ -6,8 +6,7 @@ using uLink;
 [AddComponentMenu("uLink Utilities/Client GUI")]
 public class ClientGUI : uLink.MonoBehaviour
 {
-	public bool inputName = true;
-	
+
 	string labelText = "Join Game";
 	string[] hostArray = new string[4];
 	string host = "120.148.2.185";
@@ -320,29 +319,16 @@ public class ClientGUI : uLink.MonoBehaviour
 	void Connect(string host, int port)
 	{
 		isRedirected = false;
-		
-		if (inputName)
-		{
-			uLink.Network.Connect(host, port, "", playerName);
-		}
-		else
-		{
-			uLink.Network.Connect(host, port);
-		}
+		Debug.Log (playerName);
+		uLink.Network.Connect(host, port, "", playerName);
+
 	}
 	
 	void Connect(uLink.HostData host)
 	{
 		isRedirected = false;
+		uLink.Network.Connect(host, "", playerName);
 		
-		if (inputName)
-		{
-			uLink.Network.Connect(host, "", playerName);
-		}
-		else
-		{
-			uLink.Network.Connect(host);
-		}
 	}
 	
 	void uLink_OnRedirectingToServer()

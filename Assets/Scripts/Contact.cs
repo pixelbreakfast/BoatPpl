@@ -40,6 +40,8 @@ public class Contact : uLink.MonoBehaviour {
 
 	void CheckContact() {
 	
+		repelThreshhold = transform.localScale.x * 0.4f;
+
 		Actor[] actors = GameObject.FindObjectsOfType<Actor>() as Actor[];
 		for(int i = 0; i< actors.Length; i++) {
 

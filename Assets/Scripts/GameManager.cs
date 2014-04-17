@@ -9,7 +9,7 @@ public class GameManager : uLink.MonoBehaviour {
 	public static GameManager Instance { get; private set; }
 	public List<Actor> actors;
 	List<uLink.NetworkPlayer> players = new List<uLink.NetworkPlayer>();
-
+	Dictionary<uLink.NetworkPlayer, string> playerNames = new Dictionary<uLink.NetworkPlayer, string>();
 	public int time = 0;
 	public float timeUntilVoyage;
 	public float voyageLength;
@@ -55,10 +55,10 @@ public class GameManager : uLink.MonoBehaviour {
 
 			GUILayout.BeginHorizontal();
 			GUILayout.FlexibleSpace();
-			GUILayout.Label("Waiting for players. " + players.Count + " have joined.");
+			GUILayout.Label("Waiting for players.");
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
-			
+
 			GUILayout.BeginVertical();
 			GUILayout.Space(5);
 			GUILayout.EndVertical();
@@ -67,14 +67,27 @@ public class GameManager : uLink.MonoBehaviour {
 			GUILayout.FlexibleSpace();
 
 			foreach(uLink.NetworkPlayer player in players) {
-				
+				GUILayout.BeginVertical();
+				GUILayout.Space(5);
+				GUILayout.EndVertical();
+
 				GUILayout.BeginHorizontal();
 				GUILayout.FlexibleSpace();
-				GUILayout.Label(player.ToString());
+			
+				GUILayout.Label(playerNames[player]);
 				GUILayout.FlexibleSpace();
 				GUILayout.EndHorizontal();
 			}
+			GUILayout.FlexibleSpace();
+			GUILayout.EndHorizontal();
 
+			GUILayout.BeginVertical();
+			GUILayout.Space(5);
+			GUILayout.EndVertical();
+
+			
+			GUILayout.BeginHorizontal();
+			GUILayout.FlexibleSpace();
 			if (GUILayout.Button("Start Game", GUILayout.Width(120), GUILayout.Height(25)))
 			{		
 				Debug.Log ("Game Started");
@@ -85,7 +98,6 @@ public class GameManager : uLink.MonoBehaviour {
 				//Camera.main.gameObject.AddComponent<MouseLook>();
 			}
 			
-			
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 			
@@ -93,19 +105,14 @@ public class GameManager : uLink.MonoBehaviour {
 			GUILayout.Space(2);
 			GUILayout.EndVertical();
 			GUILayout.EndVertical();
-			
-			
+
 			GUILayout.FlexibleSpace();
 			GUILayout.EndVertical();
 			GUILayout.FlexibleSpace();
 			GUILayout.EndHorizontal();
 			GUILayout.EndArea();
 
-
-
 		}
-
-		
 
 	}
 
@@ -152,8 +159,10 @@ public class GameManager : uLink.MonoBehaviour {
 	}
 
 	void uLink_OnPlayerConnected(uLink.NetworkPlayer newPlayer)
-	{
+	{	string loginName;
+		if (!newPlayer.loginData.TryRead(out loginName)) loginName = "Nameless";
 
+		playerNames.Add(newPlayer, loginName);
 		players.Add(newPlayer);
 
 	}

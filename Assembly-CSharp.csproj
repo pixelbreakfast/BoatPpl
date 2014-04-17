@@ -46,7 +46,6 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Resources\Grow.cs" />
      <Compile Include="Assets\Resources\uLinkNetworkPrefs.cs" />
      <Compile Include="Assets\Scripts\AIController.cs" />
      <Compile Include="Assets\Scripts\Actor.cs" />
@@ -67,6 +66,7 @@
      <Compile Include="Assets\Scripts\GUI\StartButton.cs" />
      <Compile Include="Assets\Scripts\GUI\WinGUI.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\Grow.cs" />
      <Compile Include="Assets\Scripts\Health.cs" />
      <Compile Include="Assets\Scripts\InspectionCamera.cs" />
      <Compile Include="Assets\Scripts\ListExtensions.cs" />
